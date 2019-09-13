@@ -1,8 +1,4 @@
-
-# coding: utf-8
-
-# In[1]:
-
+# Importing libraries
 
 import numpy as np
 import pandas as pd
@@ -14,14 +10,7 @@ pd.set_option('display.max_columns',None)
 pd.options.mode.chained_assignment = None
 
 
-# In[2]:
-
-
 file = ['.....1-u_ex181020.log.gz']
-
-
-# In[3]:
-
 
 
 def reading_files(file):
@@ -47,11 +36,7 @@ def reading_files(file):
     df_raw1 = df_raw1.drop(columns = ['date', 'time'])  
 
 
-# In[4]:
-
-
 def creating_sessions():
-    
     
     global df_with_sessions
 
@@ -114,4 +99,3 @@ def creating_sessions():
     # Concatenating single and multi users together 
     df_with_sessions = pd.concat([df_multi_users, df_single_users])
     
-
