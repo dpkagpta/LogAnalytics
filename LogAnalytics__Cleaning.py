@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
 # Importing libraries
 
 import glob
@@ -19,9 +13,6 @@ pd.set_option('display.max_colwidth',0)
 pd.set_option('display.max_columns',None)
 from bs4 import BeautifulSoup
 pd.options.mode.chained_assignment = None
-
-
-# In[2]:
 
 
 # Importing all the files from the destination
@@ -44,10 +35,6 @@ def all_files():
                 continue
             else:
                 file.append(filenames)
-
-
-# In[3]:
-
 
 def reading_files(file):
     
@@ -72,13 +59,7 @@ def reading_files(file):
         df_raw1['datetime'] = pd.to_datetime(df_raw1['date'] + " " + df_raw1['time']) 
         df_raw1 = df_raw1.drop(columns = ['date', 'time'])   
 
-
-
-# In[4]:
-
-
 def creating_sessions():
-    
     
     global df_raw3
 
@@ -130,7 +111,6 @@ def creating_sessions():
            'sc-substatus', 'sc-win32-status', 'sc-bytes', 'cs-bytes', 'time-taken',
            'datetime', 'uniqueid', 'time_gap'], how = 'outer')
 
-
     df_multi_users = df_multi_users.sort_values(by = ['uniqueid', 'datetime'])
     df_multi_users = df_multi_users.groupby('uniqueid').ffill()
     p = df_multi_users['uniqueid'] + '_0' 
@@ -147,12 +127,8 @@ def creating_sessions():
     # Changing the data type of sessioncount from object to integer
     df_raw3['sessioncount'] = df_raw3['sessioncount'].astype(int)
 
-
-# In[5]:
-
-
+     
 def step1_cleaning():
-
 
     global data_clean
 
@@ -180,10 +156,9 @@ def step1_cleaning():
     data_clean = data_clean[~data_clean['cs(User-Agent)'].str.contains('|'.join(bot_keywords), case = False)]
 
 
-# I analyzed and found some other bots on Project Honeybot. They looked very authentic to me and I decided to include them in my analysis. For more information, please visit : https://www.projecthoneypot.org/
-
-# In[6]:
-
+# I analyzed and found some other bots on Project Honeybot. 
+#They looked very authentic to me and I decided to include them in my analysis. 
+#For more information, please visit : https://www.projecthoneypot.org/
 
 def honeybots_scraping():
     
@@ -210,10 +185,6 @@ def honeybots_scraping():
 
 honeybots_scraping()
 
-
-# In[7]:
-
-
 def step2_cleaning():
     
     global data_clean
@@ -223,9 +194,6 @@ def step2_cleaning():
 
     # removing them from the cleaned data from step1
     data_clean = data_clean[~data_clean['cs(User-Agent)'].isin(bot_user_agents)]
-
-
-# In[8]:
 
 
 def step3_cleaning():
